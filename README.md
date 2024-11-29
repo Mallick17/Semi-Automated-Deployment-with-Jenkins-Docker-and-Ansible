@@ -1,6 +1,6 @@
-# Deploy a finance.war file using Jenkins, Ansible, Docker, and Tomcat to set up a web application accessible through a public IP and port.
+# Deploy a finance.war file using Jenkins, Docker, and Tomcat to set up a web application accessible through a public IP and port.
 ### Overview
-This project demonstrates the deployment of a finance.war web application using Jenkins, Docker, Tomcat, and Ansible. The application is built and packaged in Jenkins, deployed using Docker, and hosted on a Tomcat server. The deployed application is accessible via a public IP and port.
+This project demonstrates the deployment of a finance.war web application using Jenkins, Docker, & Tomcat. The application is built and packaged in Jenkins, deployed using Docker, and hosted on a Tomcat server. The deployed application is accessible via a public IP and port.
 # Steps for Deployment
 ## 1. Install Required Tools
 As the `root` user:
@@ -54,19 +54,15 @@ c. **Run the build**
 - Navigate to the `project_deploy` project dashboard.
 - Click Build Now to start the build.
 
-### 4. Configure Ansible and Deploy the WAR File
+### 4. Configure to Deploy the WAR File
 - After the Jenkins build is complete, navigate to:
   ```bash
   cd /var/lib/jenkins/workspace/app_deploy/target/
   ls
   ```
-- Copy the generated WAR file (finance.war) to the Ansible user directory:
+- Copy the generated WAR file (finance.war) to the root directory:
   ```bash
-  cp finance.war /home/ansible/
-  ```
-- Switch to the Ansible user:
-  ```bash
-  su - ansible
+  cp finance.war /root
   ```
 - Create a `Dockerfile` to package the WAR file into a Tomcat container:
   ```bash
@@ -79,7 +75,7 @@ c. **Run the build**
   COPY ./finance.war /usr/local/tomcat/webapps/
   ```
 ### 5. Build and Run the Docker Image
-As the `ansible` user
+As the `root` user
 - Build the Docker image:
   ```bash
   docker build -t project-finance .
