@@ -60,7 +60,7 @@ b. **Configure the Job**
   - Set **Maven Version** to the version installed (e.g., `Maven`).
   - Set **Goals** to `clean package`.
   - Click **Apply & Save**.
-- Under **Post-build Actions**, you can add further steps like archiving build artifacts or sending notifications.
-  
-  
+c. **Run the build**
+- Navigate to the `project_deploy` project dashboard.
+- Click Build Now to start the build.
 
