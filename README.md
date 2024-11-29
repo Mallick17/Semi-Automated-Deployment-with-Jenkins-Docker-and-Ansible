@@ -54,3 +54,77 @@ c. **Run the build**
 - Navigate to the `project_deploy` project dashboard.
 - Click Build Now to start the build.
 
+### 4. Configure Ansible and Deploy the WAR File
+- After the Jenkins build is complete, navigate to:
+  ```bash
+  cd /var/lib/jenkins/workspace/app_deploy/target/
+  ls
+  ```
+- Copy the generated WAR file (finance.war) to the Ansible user directory:
+  ```bash
+  cp finance.war /home/ansible/
+  ```
+- Switch to the Ansible user:
+  ```bash
+  su - ansible
+  ```
+- Create a `Dockerfile` to package the WAR file into a Tomcat container:
+  ```bash
+  vi Dockerfile
+  ```
+  Add the following content:
+  ```dockerfile
+  FROM tomcat:9-jre9
+  MAINTAINER "gyanaranjanmallick444@gmail.com"
+  COPY ./finance.war /usr/local/tomcat/webapps/
+  ```
+### 5. Build and Run the Docker Image
+As the `ansible` user
+- Build the Docker image:
+  ```bash
+  docker build -t project-finance .
+  ```
+- Verify the image & Run the container & Verify the container is running:
+  ```bash
+  docker images
+  docker run -it -d -p 8081:8080 --name webapp project-finance
+  docker ps
+  ```
+### 6. Access the Application
+- Identify the public IPv4 address of your server.
+- Access the application in your browser using
+  ```vbnet
+  http://<public-ip>:8081/finance
+  ```
+---
+## Additional Notes
+- **Permissions Issue with Docker:**<br>
+   If you encounter a permissions error with the Docker socket, run:
+  ```bash
+  sudo chmod 777 /var/run/docker.sock
+  ```
+- **Clean-Up Commands**
+  - Stop and remove the container
+    ```bash
+    docker rm -f webapp
+    ```
+  - **Remove the Docker image**:
+    ```bash
+    docker rmi project-finance
+    ```
+---
+## Troubleshooting
+- **Jenkins Build Fails**:
+  - Verify Maven and Git configurations.
+  - Check the repository URL and credentials.
+    
+- **Docker Build Issues:**
+  - Ensure the Dockerfile is in the correct directory.
+  - Check for typos in the Dockerfile.
+
+- **Application Not Accessible:**
+  - Verify the container is running and bound to the correct port.
+  - Ensure the server firewall allows traffic on port 8081.
+
+
+
