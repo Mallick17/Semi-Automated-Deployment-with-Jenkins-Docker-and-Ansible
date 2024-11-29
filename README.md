@@ -17,16 +17,6 @@ As the `root` user:
   [Install Docker & Docker Compose](https://github.com/Mallick17/Docker.git)
 - Installing Jenkins
   - To install Jenkins on a Red Hat-based system, prefer jenkins installation guide for Red Hat [Jenkins Installation page](https://www.jenkins.io/doc/book/installing/linux/#long-term-support-release-3)
-```bash
-sudo wget -O /etc/yum.repos.d/jenkins.repo \
-    https://pkg.jenkins.io/redhat-stable/jenkins.repo
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-sudo yum upgrade
-# Add required dependencies for the jenkins package
-sudo yum install fontconfig java-17-openjdk
-sudo yum install jenkins
-sudo systemctl daemon-reload
-```
   - Enable and Start Jenkins<br>
     Enable Jenkins to start on boot, and start the Jenkins service immediately.
   ```bash
